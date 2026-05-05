@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loop Demonstrator - For, While, Do-While</title>
+    <meta name="description" content="Interactive demonstration of JavaScript For, While, and Do-While loops with visual output.">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .output-area::-webkit-scrollbar { width: 8px; }
+        .output-area::-webkit-scrollbar-track { background: #eee; border-radius: 4px; }
+        .output-area::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+        .output-area::-webkit-scrollbar-thumb:hover { background: #666; }
+        input:focus { border-color: #444 !important; outline: none; }
+        .btn:hover { background: #e0e0e0 !important; }
+        .btn:active { transform: scale(0.97); }
+        .line { padding: 1px 0; }
+        .line.highlight { color: #8B4513; font-weight: 700; }
+    </style>
+</head>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #c0c0c0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; margin: 0;">
+
+    <div style="display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
+
+        <!-- For Loop Card -->
+        <div id="for-loop-card" style="background: #fff; border: 2px solid #222; border-radius: 12px; padding: 25px 20px; width: 280px; box-shadow: 6px 6px 0px #222; display: flex; flex-direction: column; align-items: center;">
+            <h1 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; color: #111; text-align: center;">For Loop</h1>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; width: 100%;">
+                <label for="for-number" style="font-size: 0.82rem; color: #333; white-space: nowrap; min-width: 100px;">Enter a number</label>
+                <input type="number" id="for-number" placeholder="" style="flex: 1; min-width: 0; padding: 5px 8px; border: 1px solid #999; border-radius: 4px; font-size: 0.9rem; outline: none; transition: border-color 0.2s;">
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; width: 100%;">
+                <label for="for-text" style="font-size: 0.82rem; color: #333; white-space: nowrap; min-width: 100px;">Enter a Text</label>
+                <input type="text" id="for-text" placeholder="" style="flex: 1; min-width: 0; padding: 5px 8px; border: 1px solid #999; border-radius: 4px; font-size: 0.9rem; outline: none; transition: border-color 0.2s;">
+            </div>
+            <div style="display: flex; gap: 12px; margin: 15px 0;">
+                <button class="btn" id="for-show" onclick="forLoopShow()" style="padding: 6px 22px; font-size: 0.85rem; border: 1px solid #555; border-radius: 5px; cursor: pointer; background: #f5f5f5; color: #222; transition: background 0.2s, transform 0.1s;">Show</button>
+                <button class="btn" id="for-clear" onclick="forLoopClear()" style="padding: 6px 22px; font-size: 0.85rem; border: 1px solid #555; border-radius: 5px; cursor: pointer; background: #f5f5f5; color: #222; transition: background 0.2s, transform 0.1s;">Clear</button>
+            </div>
+            <div id="for-output" style="width: 100%; max-height: 180px; overflow-y: auto; margin-top: 8px; padding: 5px 10px; font-size: 0.9rem; line-height: 1.6; color: #222;"></div>
+        </div>
+
+        <!-- While Loop Card -->
+        <div id="while-loop-card" style="background: #fff; border: 2px solid #222; border-radius: 12px; padding: 25px 20px; width: 280px; box-shadow: 6px 6px 0px #222; display: flex; flex-direction: column; align-items: center;">
+            <h1 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; color: #111; text-align: center;">While Loop</h1>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; width: 100%;">
+                <label for="while-number" style="font-size: 0.82rem; color: #333; white-space: nowrap; min-width: 100px;">Enter a number</label>
+                <input type="number" id="while-number" placeholder="" style="flex: 1; min-width: 0; padding: 5px 8px; border: 1px solid #999; border-radius: 4px; font-size: 0.9rem; outline: none; transition: border-color 0.2s;">
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; width: 100%;">
+                <label for="while-text" style="font-size: 0.82rem; color: #333; white-space: nowrap; min-width: 100px;">Enter a Text</label>
+                <input type="text" id="while-text" placeholder="" style="flex: 1; min-width: 0; padding: 5px 8px; border: 1px solid #999; border-radius: 4px; font-size: 0.9rem; outline: none; transition: border-color 0.2s;">
+            </div>
+            <div style="display: flex; gap: 12px; margin: 15px 0;">
+                <button class="btn" id="while-show" onclick="whileLoopShow()" style="padding: 6px 22px; font-size: 0.85rem; border: 1px solid #555; border-radius: 5px; cursor: pointer; background: #f5f5f5; color: #222; transition: background 0.2s, transform 0.1s;">Show</button>
+                <button class="btn" id="while-clear" onclick="whileLoopClear()" style="padding: 6px 22px; font-size: 0.85rem; border: 1px solid #555; border-radius: 5px; cursor: pointer; background: #f5f5f5; color: #222; transition: background 0.2s, transform 0.1s;">Clear</button>
+            </div>
+            <div id="while-output" style="width: 100%; max-height: 180px; overflow-y: auto; margin-top: 8px; padding: 5px 10px; font-size: 0.9rem; line-height: 1.6; color: #222;"></div>
+        </div>
+
+        <!-- Do-While Loop Card -->
+        <div id="dowhile-loop-card" style="background: #fff; border: 2px solid #222; border-radius: 12px; padding: 25px 20px; width: 280px; box-shadow: 6px 6px 0px #222; display: flex; flex-direction: column; align-items: center;">
+            <h1 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; color: #111; text-align: center;">Do-While Loop</h1>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; width: 100%;">
+                <label for="dowhile-number" style="font-size: 0.82rem; color: #333; white-space: nowrap; min-width: 100px;">Enter a number</label>
+                <input type="number" id="dowhile-number" placeholder="" style="flex: 1; min-width: 0; padding: 5px 8px; border: 1px solid #999; border-radius: 4px; font-size: 0.9rem; outline: none; transition: border-color 0.2s;">
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; width: 100%;">
+                <label for="dowhile-text" style="font-size: 0.82rem; color: #333; white-space: nowrap; min-width: 100px;">Enter a Text</label>
+                <input type="text" id="dowhile-text" placeholder="" style="flex: 1; min-width: 0; padding: 5px 8px; border: 1px solid #999; border-radius: 4px; font-size: 0.9rem; outline: none; transition: border-color 0.2s;">
+            </div>
+            <div style="display: flex; gap: 12px; margin: 15px 0;">
+                <button class="btn" id="dowhile-show" onclick="doWhileLoopShow()" style="padding: 6px 22px; font-size: 0.85rem; border: 1px solid #555; border-radius: 5px; cursor: pointer; background: #f5f5f5; color: #222; transition: background 0.2s, transform 0.1s;">Show</button>
+                <button class="btn" id="dowhile-clear" onclick="doWhileLoopClear()" style="padding: 6px 22px; font-size: 0.85rem; border: 1px solid #555; border-radius: 5px; cursor: pointer; background: #f5f5f5; color: #222; transition: background 0.2s, transform 0.1s;">Clear</button>
+            </div>
+            <div id="dowhile-output" style="width: 100%; max-height: 180px; overflow-y: auto; margin-top: 8px; padding: 5px 10px; font-size: 0.9rem; line-height: 1.6; color: #222;"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // ===== FOR LOOP =====
+        function forLoopShow() {
+            const num = document.getElementById('for-number').value;
+            const text = document.getElementById('for-text').value;
+
+            if (!num || !text) { alert('Please enter both a number and text.'); return; }
+
+            const count = parseInt(num);
+            if (isNaN(count) || count <= 0) { alert('Please enter a valid positive number.'); return; }
+
+            const outputDiv = document.getElementById('for-output');
+            outputDiv.innerHTML = '';
+
+            for (let i = 1; i <= count; i++) {
+                const line = document.createElement('div');
+                line.classList.add('line');
+                line.textContent = `${text} ${i}`;
+                if (i === 4) line.classList.add('highlight');
+                outputDiv.appendChild(line);
+            }
+        }
+
+        function forLoopClear() {
+            document.getElementById('for-number').value = '';
+            document.getElementById('for-text').value = '';
+            document.getElementById('for-output').innerHTML = '';
+        }
+
+        // ===== WHILE LOOP =====
+        function whileLoopShow() {
+            const num = document.getElementById('while-number').value;
+            const text = document.getElementById('while-text').value;
+
+            if (!num || !text) { alert('Please enter both a number and text.'); return; }
+
+            const count = parseInt(num);
+            if (isNaN(count) || count <= 0) { alert('Please enter a valid positive number.'); return; }
+
+            const outputDiv = document.getElementById('while-output');
+            outputDiv.innerHTML = '';
+
+            let i = 1;
+            while (i <= count) {
+                const line = document.createElement('div');
+                line.classList.add('line');
+                line.textContent = `${text} ${i}`;
+                if (i === 4) line.classList.add('highlight');
+                outputDiv.appendChild(line);
+                i++;
+            }
+        }
+
+        function whileLoopClear() {
+            document.getElementById('while-number').value = '';
+            document.getElementById('while-text').value = '';
+            document.getElementById('while-output').innerHTML = '';
+        }
+
+        // ===== DO-WHILE LOOP =====
+        function doWhileLoopShow() {
+            const num = document.getElementById('dowhile-number').value;
+            const text = document.getElementById('dowhile-text').value;
+
+            if (!num || !text) { alert('Please enter both a number and text.'); return; }
+
+            const count = parseInt(num);
+            if (isNaN(count) || count <= 0) { alert('Please enter a valid positive number.'); return; }
+
+            const outputDiv = document.getElementById('dowhile-output');
+            outputDiv.innerHTML = '';
+
+            let i = 1;
+            do {
+                const line = document.createElement('div');
+                line.classList.add('line');
+                line.textContent = `${text} ${i}`;
+                if (i === 4) line.classList.add('highlight');
+                outputDiv.appendChild(line);
+                i++;
+            } while (i <= count);
+        }
+
+        function doWhileLoopClear() {
+            document.getElementById('dowhile-number').value = '';
+            document.getElementById('dowhile-text').value = '';
+            document.getElementById('dowhile-output').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
